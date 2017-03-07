@@ -1,6 +1,10 @@
 MyAPI
 ======
 
+[![Build Status](https://travis-ci.org/butomo1989/myAPI.svg?branch=master)](https://travis-ci.org/butomo1989/myAPI)
+[![codecov](https://codecov.io/gh/butomo1989/myAPI/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/myAPI)
+
+
 A Sample RESTful API written in Python and uses [Flask](http://flask.pocoo.org) and [Connexion](https://github.com/zalando/connexion) / [Swagger](http://swagger.io) as frameworks, [PostgreSQL](https://www.postgresql.org) as database and [Flask-SQLAlchemy](http://flask-sqlalchemy.pocoo.org/2.1/) as Object Relational Mapper.
 
 Requirements
