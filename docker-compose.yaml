@@ -18,7 +18,6 @@ services:
       - 8080:8080
     environment:
       - DB_HOST=db
-      - DB_PORT=5431
       - DB_USER=usr
       - DB_PASS=pass
       - DB_NAME=employee
@@ -29,7 +28,6 @@ services:
       - db
     environment:
       - DB_HOST=db
-      - DB_PORT=5431
       - DB_USER=usr
       - DB_PASS=pass
       - DB_NAME=employee
