@@ -1,0 +1,15 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+script: bash local.sh test
+
+branches:
+  only:
+  - master
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
