@@ -4,7 +4,7 @@ services:
     build: github.com/sameersbn/docker-postgresql
     container_name: db
     ports:
-      - 5432:5432
+      - 5431:5432
     environment:
       - DB_USER=usr
       - DB_PASS=pass
@@ -12,22 +12,24 @@ services:
   api:
     image: butomo1989/myapi
     container_name: api
-    depends_on:
+    links:
       - db
     ports:
       - 8080:8080
     environment:
       - DB_HOST=db
+      - DB_PORT=5431
       - DB_USER=usr
       - DB_PASS=pass
       - DB_NAME=employee
   test:
     image: butomo1989/myapi
     container_name: test
-    depends_on:
+    links:
       - db
     environment:
       - DB_HOST=db
+      - DB_PORT=5431
       - DB_USER=usr
       - DB_PASS=pass
       - DB_NAME=employee
