@@ -10,7 +10,7 @@ services:
       - DB_PASS=pass
       - DB_NAME=employee
   api:
-    image: butomo1989/myapi
+    build: .
     container_name: api
     links:
       - db
@@ -22,7 +22,7 @@ services:
       - DB_PASS=pass
       - DB_NAME=employee
   test:
-    image: butomo1989/myapi
+    build: .
     container_name: test
     links:
       - db
