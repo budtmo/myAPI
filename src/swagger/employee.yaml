@@ -1,0 +1,130 @@
+swagger: '2.0'
+info:
+  title: MyApi
+  description: A Sample RESTful Api written in Python.
+  version: '1.0'
+
+paths:
+  /:
+    get:
+      summary: Root endpoint
+      operationId: src.views.root
+      responses:
+        '200':
+          description: Logged In
+  /employees:
+    get:
+      tags:
+        - employee
+      summary: Get all employee profiles
+      operationId: src.views.employee.get_all
+      parameters:
+        - name: page_number
+          type: integer
+          in: query
+          required: True
+          default: 1
+        - name: page_size
+          type: integer
+          in: query
+          required: True
+          default: 10
+      responses:
+        '200':
+          description: Return employees profiles
+          schema:
+            $ref: '#/definitions/EmployeeList'
+  /employee:
+    post:
+      tags:
+        - employee
+      summary: Insert a new employee profile
+      operationId: src.views.employee.insert
+      parameters:
+        - $ref: '#/parameters/employee'
+      responses:
+        '200':
+          description: Return inserted employee profile
+          schema:
+            $ref: '#/definitions/Employee'
+  /employee/{employee_id}:
+    get:
+      tags:
+        - employee
+      summary: Get specific employee profile by id
+      operationId: src.views.employee.get
+      parameters:
+        - $ref: '#/parameters/employee_id'
+      responses:
+        '200':
+          description: Return employee profile
+          schema:
+            $ref: '#/definitions/Employee'
+    put:
+      tags:
+        - employee
+      summary: Edit specific employee profile by id
+      operationId: src.views.employee.update
+      parameters:
+        - $ref: '#/parameters/employee_id'
+        - $ref: '#/parameters/employee'
+      responses:
+        '200':
+          description: Return updated employee profile
+          schema:
+            $ref: '#/definitions/Employee'
+    delete:
+      tags:
+        - employee
+      summary: Delete employee profile by id
+      operationId: src.views.employee.delete
+      parameters:
+         - $ref: '#/parameters/employee_id'
+      responses:
+        204:
+          description: Employee profile is deleted
+
+parameters:
+  employee_id:
+    name: employee_id
+    in: path
+    type: integer
+    required: true
+  employee:
+    name: employee
+    in: body
+    schema:
+      $ref: '#/definitions/Employee'
+
+definitions:
+  EmployeeList:
+    type: object
+    properties:
+      page_number:
+        type: integer
+        description: Selected page number
+        example: 1
+      total_pages:
+        type: integer
+        description: Number of pages
+        example: 3
+      employees:
+        type: array
+        items:
+          $ref: '#/definitions/Employee'
+  Employee:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique Identifier
+        example: 1
+        readOnly: true
+      name:
+        type: string
+        description: name of a employee
+        example: 'budi'
+      age:
+        type: integer
+        description: age of a employee
+        example: 27
