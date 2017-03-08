@@ -27,4 +27,4 @@ EXPOSE 8080
 COPY . /opt/
 WORKDIR /opt
 ENV PYTHONPATH .
-CMD python3 -m src.app
+CMD /usr/local/bin/gunicorn --config=src/config/server/gunicorn.py src.app

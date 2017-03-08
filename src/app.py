@@ -9,7 +9,7 @@ import os
 import connexion
 
 from src import WORKDIR, database_config
-from src.configuration import log
+from src.config import log
 from src.models import db
 
 log.init()

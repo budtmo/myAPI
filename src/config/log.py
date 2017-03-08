@@ -4,7 +4,7 @@ Logging
 import logging
 import logging.config
 
-from src.configuration import LOGGING_FILE
+from src.config import LOGGING_FILE
 
 
 def init():

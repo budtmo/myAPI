@@ -5,11 +5,11 @@ MyAPI
 [![codecov](https://codecov.io/gh/butomo1989/myAPI/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/myAPI)
 
 
-A Sample RESTful API written in Python and uses [Flask](http://flask.pocoo.org) and [Connexion](https://github.com/zalando/connexion) / [Swagger](http://swagger.io) as frameworks, [PostgreSQL](https://www.postgresql.org) as database and [Flask-SQLAlchemy](http://flask-sqlalchemy.pocoo.org/2.1/) as Object Relational Mapper.
+A Sample RESTful API written in Python and uses [Flask](http://flask.pocoo.org) and [Connexion](https://github.com/zalando/connexion) / [Swagger](http://swagger.io) as frameworks, [PostgreSQL](https://www.postgresql.org) as database, [Flask-SQLAlchemy](http://flask-sqlalchemy.pocoo.org/2.1/) as Object Relational Mapper and [Gunicorn](http://gunicorn.org) as WSGI HTTP Server.
 
 Requirements
 ------------
-1. [docker-compose] version 1.6.0+
+1. [docker-compose](https://docs.docker.com/compose/install/) version 1.6.0+
 
 Quick Start
 -----------
