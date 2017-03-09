@@ -39,8 +39,4 @@ function run() {
     docker-compose up -d api
 }
 
-function debug() {
-    docker-compose logs -f
-}
-
 $@

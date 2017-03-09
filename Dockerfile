@@ -16,15 +16,21 @@ RUN apt-get install python3 python3-pip -y
 COPY requirements.txt /tmp/
 RUN pip3 install -r /tmp/requirements.txt
 
+#==============================
+# Install Supervisor and Nginx
+#==============================
+RUN apt-get install supervisor nginx -y
+ENV LOG_PATH=/var/log/supervisor
+COPY nginx/nginx.conf /etc/nginx/
+
 #=============
 # Expose Port
 #=============
-EXPOSE 8080
+EXPOSE 80
 
 #=========
 # Run app
 #=========
 COPY . /opt/
 WORKDIR /opt
-ENV PYTHONPATH .
-CMD /usr/local/bin/gunicorn --config=src/config/server/gunicorn.py src.app
+CMD /usr/bin/supervisord --configuration supervisord.conf

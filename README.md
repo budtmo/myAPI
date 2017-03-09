@@ -19,7 +19,7 @@ Quick Start
 	local.sh run
 	```
 
-2. accees [app](http://127.0.0.1:8080/ui) through web browser.
+2. accees [app](http://127.0.0.1/ui) through web browser.
 
 	![][app]
 
@@ -31,8 +31,10 @@ local.sh test
 
 Troubleshooting
 ---------------
+All logs inside container are stored under folder **/var/log/supervisor**. you can print out log file by using **docker exec**. Example:
+
 ```bash
-local.sh debug
+docker exec -it api tail -f /var/log/supervisor/gunicorn.stdout.log
 ```
 
 [app]: <img/app.png>
