@@ -1,5 +1,7 @@
 import json
 
+from src.models.employee import Employee
+
 from src.views.tests import BaseTest
 
 
@@ -9,7 +11,7 @@ class TestInsertEmployee(BaseTest):
     def setUp(self):
         super().setUp()
         self.headers = {'Content-Type': 'application/json'}
-        self.payload = {'name': 'budi', 'active': True}
+        self.payload = {'name': 'budi', 'gender': Employee.Gender.MALE, 'active': True}
 
     def test_insert_employee(self):
         res = self.test_app.post('/employee', headers=self.headers, data=json.dumps(self.payload))

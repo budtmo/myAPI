@@ -34,6 +34,6 @@ class BaseTest(TestCase):
     def insert_employee(self):
         with self.application.app_context():
             from src.models.employee import Employee
-            new_employee = Employee(name='budi', active=True)
+            new_employee = Employee(name='budi', gender=Employee.Gender.MALE, active=True)
             self.db.session.add(new_employee)
             self.db.session.commit()

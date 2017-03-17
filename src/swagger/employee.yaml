@@ -120,6 +120,11 @@ definitions:
         type: string
         description: name of a employee
         example: 'budi'
+      gender:
+        type: string
+        enum: [ "male", "female"]
+        description: gender of a employee
+        example: 'male'
       active:
         type: boolean
         description: employee status
