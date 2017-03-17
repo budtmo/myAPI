@@ -17,10 +17,22 @@ class Employee(db.Model):
         """
         Constructor
         :param name: employee name
-        :param name: employee age
+        :param age: employee age
         """
         self.name = name
         self.age = age
+
+    def update(self, id: int=None, name: str=None, age: int=None):
+        """
+        Update employee profile
+        :param id: employee id
+        :param name: employee name
+        :param age: employee age
+        """
+        if name:
+            self.name = name
+        if age:
+            self.age = age
 
     def to_dict(self) -> dict:
         """

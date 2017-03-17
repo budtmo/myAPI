@@ -7,10 +7,9 @@ class BaseTest(TestCase):
     def setUpClass(cls):
         from src.app import application
         from src.models import db
-        from src import database_config
+        from src import settings
         application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://{0:s}:{1:s}@{2:s}:{3:d}/{4:s}'.format(
-            database_config['username'], database_config['password'], database_config['host'], database_config['port'],
-            database_config['dbname'])
+            settings.DB_USER, settings.DB_PASS, settings.DB_HOST, settings.DB_PORT, settings.DB_NAME)
         application.config['TESTING'] = True
 
         db.init_app(application)

@@ -18,4 +18,4 @@ class TestUpdateEmployeeProfile(BaseTest):
 
         self.insert_employee()
         res = self.test_app.put(self.url, headers=self.headers, data=json.dumps(self.payload))
-        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.status_code, 201)

@@ -3,6 +3,8 @@ Employee endpoints.
 """
 import logging
 
+from connexion import NoContent
+
 from flask import abort
 
 from src import get_number_of_pages
@@ -56,16 +58,16 @@ def insert(employee: dict) -> dict:
     Insert a new employee profile
     :return: created employee profile
     """
-    logger.info('employee profile: {profile}'.format(profile=employee))
+    logger.info('New employee profile: {profile}'.format(profile=employee))
     if Employee.query.filter(Employee.name == employee.get('name')).first():
         logger.warning(warning.ALREADY_EXISTS)
         abort(400, {'message': warning.ALREADY_EXISTS})
     else:
-        new_employee = Employee(name=employee.get('name'), age=employee.get('age'))
-        db.session.add(new_employee)
+        employee.pop('id', None)
+        db.session.add(Employee(**employee))
         db.session.commit()
-        logger.info('given profile is successfully inserted!')
-    return new_employee.to_dict()
+        logger.info('Profile saved!')
+    return NoContent, 200
 
 
 def get(employee_id: int):
@@ -83,12 +85,12 @@ def update(employee_id: int, employee: dict) -> dict:
     :param employee: employee profile
     :return: updated employee profile
     """
-    logger.info('Employee id that will be updated: {id}'.format(id=employee_id))
+    logger.info('Employee id that want to be updated: {id}'.format(id=employee_id))
     selected_employee = Employee.query.filter(Employee.id == employee_id).first_or_404()
-    selected_employee.name = employee.get('name') if employee.get('name') else selected_employee.name
-    selected_employee.age = employee.get('age') if employee.get('age') else selected_employee.age
+    selected_employee.update(**employee)
     db.session.commit()
-    return selected_employee.to_dict()
+    logger.info('Updated!')
+    return NoContent, 201
 
 
 def delete(employee_id: int):
@@ -99,5 +101,5 @@ def delete(employee_id: int):
     employee = Employee.query.filter(Employee.id == employee_id).first_or_404()
     db.session.delete(employee)
     db.session.commit()
-    logger.info('profile with id \"{id}\" is successfully deleted!'.format(id=employee_id))
-    return '', 204
+    logger.info('Employee with id \"{id}\" is successfully deleted!'.format(id=employee_id))
+    return NoContent, 204
