@@ -11,28 +11,28 @@ class Employee(db.Model):
     __tablename__ = 'employee'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    age = db.Column(db.Integer)
+    active = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, name: str, age: int):
+    def __init__(self, name: str, active: bool):
         """
         Constructor
         :param name: employee name
-        :param age: employee age
+        :param active: position status
         """
         self.name = name
-        self.age = age
+        self.active = active
 
-    def update(self, id: int=None, name: str=None, age: int=None):
+    def update(self, id: int=None, name: str=None, active: bool=None):
         """
         Update employee profile
         :param id: employee id
         :param name: employee name
-        :param age: employee age
+        :param active: position status
         """
         if name:
             self.name = name
-        if age:
-            self.age = age
+        if active is not None:
+            self.active = active
 
     def to_dict(self) -> dict:
         """
@@ -42,7 +42,7 @@ class Employee(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'age': self.age
+            'active': self.active
         }
 
     def __repr__(self):
@@ -50,4 +50,5 @@ class Employee(db.Model):
         Convert employee to string
         :return: employee
         """
-        return '<Employee(id={id}, name={name}, age={age}>'.format(id=self.id, name=self.name, age=self.age)
+        return '<Employee(id={id}, name={name}, active={atv}>'.format(
+            id=self.id, name=self.name, atv=self.active)

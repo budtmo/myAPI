@@ -31,7 +31,7 @@ paths:
           default: 10
       responses:
         '200':
-          description: Return employees profiles
+          description: Return list of employee
           schema:
             $ref: '#/definitions/EmployeeList'
   /employee:
@@ -44,9 +44,7 @@ paths:
         - $ref: '#/parameters/employee'
       responses:
         '200':
-          description: Return inserted employee profile
-          schema:
-            $ref: '#/definitions/Employee'
+          description: Successfully inserted
   /employee/{employee_id}:
     get:
       tags:
@@ -57,7 +55,7 @@ paths:
         - $ref: '#/parameters/employee_id'
       responses:
         '200':
-          description: Return employee profile
+          description: Return employee
           schema:
             $ref: '#/definitions/Employee'
     put:
@@ -69,10 +67,8 @@ paths:
         - $ref: '#/parameters/employee_id'
         - $ref: '#/parameters/employee'
       responses:
-        '200':
-          description: Return updated employee profile
-          schema:
-            $ref: '#/definitions/Employee'
+        '201':
+          description: Successfully updated
     delete:
       tags:
         - employee
@@ -82,7 +78,7 @@ paths:
          - $ref: '#/parameters/employee_id'
       responses:
         204:
-          description: Employee profile is deleted
+          description: Successfully deleted
 
 parameters:
   employee_id:
@@ -124,7 +120,7 @@ definitions:
         type: string
         description: name of a employee
         example: 'budi'
-      age:
-        type: integer
-        description: age of a employee
-        example: 27
+      active:
+        type: boolean
+        description: employee status
+        example: true

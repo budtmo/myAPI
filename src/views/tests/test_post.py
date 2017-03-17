@@ -9,7 +9,7 @@ class TestInsertEmployee(BaseTest):
     def setUp(self):
         super().setUp()
         self.headers = {'Content-Type': 'application/json'}
-        self.payload = {'name': 'budi', 'age': 27}
+        self.payload = {'name': 'budi', 'active': True}
 
     def test_insert_employee(self):
         res = self.test_app.post('/employee', headers=self.headers, data=json.dumps(self.payload))
