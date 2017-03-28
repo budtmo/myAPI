@@ -1,27 +1,20 @@
 FROM ubuntu:16.04
 
-#=======================
-# General Configuration
-#=======================
-RUN apt-get update -y
-
 #==================
-# Install Python 3
+# General Packages
 #==================
-RUN apt-get install python3 python3-pip -y
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    supervisor \
+    nginx \
+ && rm -rf /var/lib/apt/lists/*
 
 #======================
 # Install dependencies
 #======================
 COPY requirements.txt /tmp/
 RUN pip3 install -r /tmp/requirements.txt
-
-#==============================
-# Install Supervisor and Nginx
-#==============================
-RUN apt-get install supervisor nginx -y
-ENV LOG_PATH=/var/log/supervisor
-COPY nginx/nginx.conf /etc/nginx/
 
 #=============
 # Expose Port
@@ -31,6 +24,8 @@ EXPOSE 80
 #=========
 # Run app
 #=========
-COPY . /opt/
 WORKDIR /opt
+COPY nginx/nginx.conf /etc/nginx/
+COPY . /opt/
+ENV LOG_PATH=/var/log/supervisor
 CMD /usr/bin/supervisord --configuration supervisord.conf
