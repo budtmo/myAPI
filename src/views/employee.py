@@ -2,10 +2,13 @@
 Employee endpoints.
 """
 import logging
+from datetime import datetime
 
 from connexion import NoContent
 
 from flask import abort
+
+from sqlalchemy.exc import DataError
 
 from src import get_number_of_pages
 from src.models import db
@@ -63,10 +66,14 @@ def insert(employee: dict) -> dict:
         logger.warning(warning.ALREADY_EXISTS)
         abort(400, {'message': warning.ALREADY_EXISTS})
     else:
-        employee.pop('id', None)
-        db.session.add(Employee(**employee))
-        db.session.commit()
-        logger.info('Profile saved!')
+        try:
+            employee.pop('id', None)
+            employee['registered'] = datetime.utcnow()
+            db.session.add(Employee(**employee))
+            db.session.commit()
+            logger.info('Profile saved!')
+        except DataError:
+            abort(400, {'message': warning.INVALID_DATA_TYPE})
     return NoContent, 200
 
 
@@ -85,12 +92,15 @@ def update(employee_id: int, employee: dict) -> dict:
     :param employee: employee profile
     :return: updated employee profile
     """
-    logger.info('Employee id that want to be updated: {id}'.format(id=employee_id))
-    selected_employee = Employee.query.filter(Employee.id == employee_id).first_or_404()
-    selected_employee.update(**employee)
-    db.session.commit()
-    logger.info('Updated!')
-    return NoContent, 201
+    try:
+        logger.info('Employee id that want to be updated: {id}'.format(id=employee_id))
+        selected_employee = Employee.query.filter(Employee.id == employee_id).first_or_404()
+        selected_employee.update(**employee)
+        db.session.commit()
+        logger.info('Updated!')
+        return NoContent, 201
+    except DataError:
+        abort(400, {'message': warning.INVALID_DATA_TYPE})
 
 
 def delete(employee_id: int):

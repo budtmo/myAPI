@@ -125,7 +125,19 @@ definitions:
         enum: [ "male", "female"]
         description: gender of a employee
         example: 'male'
+      birthdate:
+        type: string
+        format: date
+        description: birthdate of a employee
+        example: "March 01, 2000"
+        readOnly: true
       active:
         type: boolean
         description: employee status
         example: true
+      registered:
+        type: string
+        format: date-time
+        description: datetime when employee is registered in DB
+        example: "2015-07-07T15:49:51.230+02:00"
+        readOnly: true
